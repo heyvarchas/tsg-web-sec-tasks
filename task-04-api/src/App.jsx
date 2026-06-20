@@ -1,6 +1,11 @@
 import { useState } from 'react'
-import { Search, X, BookOpen, Loader2 } from 'lucide-react'
+import { BookOpen, Loader2 } from 'lucide-react'
 import { useWikipediaData } from './hooks/useWikipediaData'
+import SearchBar from './components/SearchBar'
+import StatsGrid from './components/StatsGrid'
+import SummarySection from './components/SummarySection'
+import PageViewsChart from './components/PageViewsChart'
+import LinkedPagesList from './components/LinkedPagesList'
 
 export default function App() {
   const [input, setInput] = useState('')
@@ -15,10 +20,6 @@ export default function App() {
     reset()
   }
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') handleSearch()
-  }
-
   return (
     <div className="min-h-screen bg-wiki-lightgray">
 
@@ -29,43 +30,13 @@ export default function App() {
           <span className="font-semibold text-wiki-text text-lg tracking-tight">
             Wiki<span className="text-wiki-blue">Dash</span>
           </span>
-
-          {/* Search input */}
-          <div className="flex-1 flex items-center gap-2 ml-4">
-            <div className="relative flex-1 max-w-xl">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder='Search a Wikipedia page — e.g. "Albert Einstein"'
-                className="w-full border border-wiki-border rounded-md px-3 py-2 pr-8 text-sm
-                           focus:outline-none focus:ring-2 focus:ring-wiki-blue focus:border-transparent
-                           bg-wiki-lightgray placeholder:text-wiki-gray"
-              />
-              {input && (
-                <button
-                  onClick={handleClear}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-wiki-gray hover:text-wiki-text"
-                >
-                  <X size={14} />
-                </button>
-              )}
-            </div>
-            <button
-              onClick={handleSearch}
-              disabled={loading || !input.trim()}
-              className="flex items-center gap-1.5 bg-wiki-blue text-white text-sm px-4 py-2
-                         rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed
-                         transition-colors shrink-0"
-            >
-              {loading
-                ? <Loader2 size={14} className="animate-spin" />
-                : <Search size={14} />
-              }
-              {loading ? 'Fetching…' : 'Search'}
-            </button>
-          </div>
+          <SearchBar
+            input={input}
+            setInput={setInput}
+            onSearch={handleSearch}
+            onClear={handleClear}
+            loading={loading}
+          />
         </div>
       </header>
 
@@ -102,49 +73,16 @@ export default function App() {
           </div>
         )}
 
-        {/* Dashboard — placeholder slots for Day 2 components */}
+        {/* Dashboard */}
         {data && !loading && (
-          <div className="space-y-6">
-
-            {/* Row 1 — header + thumbnail */}
-            <div className="card">
-              <p className="section-title">Page</p>
-              <h1 className="text-2xl font-bold text-wiki-text">{data.title}</h1>
-              <p className="text-xs font-mono text-wiki-gray mt-1">ID: {data.pageId}</p>
-            </div>
-
-            {/* Row 2 — stats grid placeholder */}
-            <div className="card">
-              <p className="section-title">Metadata</p>
-              <pre className="text-xs text-wiki-gray overflow-auto">
-                {JSON.stringify(
-                  {
-                    length: data.length,
-                    lastEdited: data.lastEdited,
-                    currentRevisionId: data.currentRevisionId,
-                    protection: data.protection,
-                    dateCreated: data.dateCreated,
-                    lastEditor: data.lastEditor,
-                    uniqueEditors: data.uniqueEditors,
-                    languageCount: data.languageCount,
-                  },
-                  null,
-                  2
-                )}
-              </pre>
-            </div>
-
-            {/* Row 3 — pageviews placeholder */}
-            <div className="card">
-              <p className="section-title">Pageviews (raw)</p>
-              <p className="text-sm text-wiki-gray">
-                Total: {data.pageViews.total} · Avg: {data.pageViews.average}/day ·
-                Days: {data.pageViews.daily.length}
-              </p>
-            </div>
-
+          <div className="space-y-4">
+            <SummarySection data={data} />
+            <StatsGrid data={data} />
+            <PageViewsChart pageViews={data.pageViews} />
+            <LinkedPagesList linkedPages={data.linkedPages} backlinks={data.backlinks} />
           </div>
         )}
+
       </main>
     </div>
   )
