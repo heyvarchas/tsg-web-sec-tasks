@@ -93,7 +93,6 @@ Thumbs.db
 # 8. Editor / IDE Settings
 # ==========================================
 .vscode/*
-!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
