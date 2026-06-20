@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-wiki-lightgray text-wiki-text antialiased;
+  }
+
+  * {
+    @apply box-border;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-lg border border-wiki-border shadow-sm p-4;
+  }
+
+  .section-title {
+    @apply text-sm font-semibold uppercase tracking-widest text-wiki-gray mb-3;
+  }
+
+  .stat-value {
+    @apply text-2xl font-bold text-wiki-text font-mono;
+  }
+
+  .stat-label {
+    @apply text-xs text-wiki-gray mt-1;
+  }
+
+  .scrollable-list {
+    @apply max-h-48 overflow-y-auto divide-y divide-wiki-border;
+  }
+
+  .scrollable-list-item {
+    @apply py-2 px-1 text-sm text-wiki-blue hover:bg-wiki-lightblue cursor-pointer transition-colors;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #a2a9b1 transparent;
+  }
+}
