@@ -1,0 +1,36 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: dims-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: dims-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/dims
+      - JWT_SECRET=supersecretjwtkey
+      - JWT_EXPIRES_IN=7d
+      - BCRYPT_ROUNDS=10
+      - PORT=3000
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./frontend
+    container_name: dims-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
