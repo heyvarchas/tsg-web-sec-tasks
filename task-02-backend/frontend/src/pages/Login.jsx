@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+{/* Store backend link in constant API, default if undefined */}
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-
+{/* I'm going to create a react function and export it */}
 export default function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  {/* I'll try to create an asynchronous function executed when the form is submitted */}
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -36,6 +38,7 @@ export default function Login() {
     }
   };
 
+  {/* Here begins the UI returned by the component */}
   return (
     <div style={styles.container}>
       <div style={styles.card}>

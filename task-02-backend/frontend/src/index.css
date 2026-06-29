@@ -1,3 +1,4 @@
+/* I want to define vaiables that are available throughout the entire stylesheet */
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -15,6 +16,7 @@
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
+  /* Some global typography settings */
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
@@ -25,11 +27,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  /* Responsive Font Size */
   @media (max-width: 1024px) {
     font-size: 16px;
   }
 }
 
+/* Here I'm creating a dark mode support */
+/* This is used only when the user is in dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
@@ -50,10 +55,12 @@
   }
 }
 
+/* Removes the browser's default 8px margin around the page */
 body {
   margin: 0;
 }
 
+/* Root Container Styling */
 #root {
   width: 1126px;
   max-width: 100%;
@@ -66,6 +73,7 @@ body {
   box-sizing: border-box;
 }
 
+/* Heading settings */
 h1,
 h2 {
   font-family: var(--heading);
@@ -91,10 +99,13 @@ h2 {
     font-size: 20px;
   }
 }
+
+/* Paragraph margin settings */
 p {
   margin: 0;
 }
 
+/* Common styles for <code> elements or this with .counter class */
 code,
 .counter {
   font-family: var(--mono);
@@ -103,6 +114,7 @@ code,
   color: var(--text-h);
 }
 
+/* Unique styling for <code> elements */
 code {
   font-size: 15px;
   line-height: 135%;
