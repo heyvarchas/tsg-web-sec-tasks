@@ -1,9 +1,15 @@
+// Load environment variables from .env files
 require('dotenv').config();
+
+// Import Mongoose and qr code generation library
 const mongoose = require('mongoose');
 const QRCode = require('qrcode');
+
+// Import user and asset models
 const User = require('../src/modules/auth/auth.model');
 const Asset = require('../src/modules/assets/asset.model');
 
+// Now I'll make an asynchronous function to connect to Mongoose and seed
 const seed = async () => {
   await mongoose.connect(process.env.MONGODB_URI);
   console.log('MongoDB connected');
@@ -50,8 +56,8 @@ const seed = async () => {
 
   console.log('Assets seeded');
   console.log('----------------------------');
-  console.log('Admin  → admin@dims.com / admin123');
-  console.log('User   → john@dims.com  / user1234');
+  console.log('Admin  -> admin@dims.com / admin123');
+  console.log('User   -> john@dims.com  / user1234');
   console.log('----------------------------');
 
   await mongoose.disconnect();
@@ -59,6 +65,7 @@ const seed = async () => {
   process.exit(0);
 };
 
+// Now I'll call the function, but I'll beware of errors too
 seed().catch((err) => {
   console.error('Seed failed:', err);
   process.exit(1);
