@@ -1,10 +1,14 @@
+{/* I need a couple of icons from lucide react */}
 import { Search, X, Loader2 } from 'lucide-react'
 
+{/* Next I indend to create and export the SearchBar component */}
 export default function SearchBar({ input, setInput, onSearch, onClear, loading }) {
+  {/* Let's check if the user hit the enter key */}
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') onSearch()
   }
 
+  {/* jsx part returned by the component */}
   return (
     <div className="flex-1 flex items-center gap-2 ml-4">
       <div className="relative flex-1 max-w-xl">

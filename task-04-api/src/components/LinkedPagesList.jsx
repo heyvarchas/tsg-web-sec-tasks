@@ -1,3 +1,5 @@
+{/* First I need to create a repeatable component that displays wiki links */}
+{/* Then basically I can use that for both linked pages and backlinks */}
 function PageList({ title, items }) {
   return (
     <div className="card flex-1">

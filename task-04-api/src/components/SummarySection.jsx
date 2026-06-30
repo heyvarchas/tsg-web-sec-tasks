@@ -1,4 +1,6 @@
+{/* directly jump to the main component of the code, to be imported */}
 export default function SummarySection({ data }) {
+  {/* this entirely is the jsx part to be returned */}
   return (
     <div className="card flex gap-5">
       {data.thumbnail && (

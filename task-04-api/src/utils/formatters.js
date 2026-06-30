@@ -1,4 +1,4 @@
-// ─── Date formatting ──────────────────────────────────────────────────────────
+// Date formatting in this portion
 export function formatDate(isoString) {
   if (!isoString) return 'N/A'
   return new Date(isoString).toLocaleDateString('en-US', {
@@ -19,7 +19,7 @@ export function formatDateTime(isoString) {
   })
 }
 
-// ─── Number formatting ────────────────────────────────────────────────────────
+// Here I'm going to format numbers
 export function formatNumber(num) {
   if (num === null || num === undefined) return 'N/A'
   return new Intl.NumberFormat('en-US').format(num)
@@ -33,7 +33,7 @@ export function formatCompact(num) {
   }).format(num)
 }
 
-// ─── Byte formatting ──────────────────────────────────────────────────────────
+// Byte formatting
 export function formatBytes(bytes) {
   if (!bytes) return 'N/A'
   if (bytes < 1024) return `${bytes} B`
@@ -41,7 +41,7 @@ export function formatBytes(bytes) {
   return `${(bytes / (1024 * 1024)).toFixed(2)} MB`
 }
 
-// ─── Protection status ────────────────────────────────────────────────────────
+// Protection status
 export function formatProtection(protection) {
   if (!protection || protection.length === 0) return 'None'
 
@@ -54,7 +54,7 @@ export function formatProtection(protection) {
     .join(' · ')
 }
 
-// ─── Chart date label ─────────────────────────────────────────────────────────
+// Chart date label formation
 export function formatChartDate(dateString) {
   const date = new Date(dateString)
   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })

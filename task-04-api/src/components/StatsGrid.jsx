@@ -1,5 +1,7 @@
+{/* Need a couple of functions from the formatters file */}
 import { formatDate, formatDateTime, formatBytes, formatNumber, formatProtection } from '../utils/formatters'
 
+{/* I'll need a reusable piece of code for the card component */}
 function StatCard({ label, value, mono = false }) {
   return (
     <div className="card flex flex-col gap-1">
@@ -9,6 +11,7 @@ function StatCard({ label, value, mono = false }) {
   )
 }
 
+{/* Here;s again the main component of this file of code */}
 export default function StatsGrid({ data }) {
   const protection = formatProtection(data.protection)
 

@@ -1,3 +1,4 @@
+{/* Okay so Im going to import necessary stuff into the file */}
 import { useState } from 'react'
 import { BookOpen, Loader2 } from 'lucide-react'
 import { useWikipediaData } from './hooks/useWikipediaData'
@@ -7,23 +8,27 @@ import SummarySection from './components/SummarySection'
 import PageViewsChart from './components/PageViewsChart'
 import LinkedPagesList from './components/LinkedPagesList'
 
+{/* define the main app component and export */}
 export default function App() {
   const [input, setInput] = useState('')
   const { data, loading, error, search, reset } = useWikipediaData()
 
+  {/* need a function for searching */}
   const handleSearch = () => {
     if (input.trim()) search(input.trim())
   }
 
+  {/* need a function the clears the current search as well */}
   const handleClear = () => {
     setInput('')
     reset()
   }
 
+  {/* Begin whatever is going to be returned */}
   return (
     <div className="min-h-screen bg-wiki-lightgray">
 
-      {/* ── Top bar ── */}
+      {/* Top bar */}
       <header className="bg-white border-b border-wiki-border sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
           <BookOpen size={22} className="text-wiki-blue shrink-0" />
@@ -40,7 +45,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* ── Main content ── */}
+      {/* Main content */}
       <main className="max-w-6xl mx-auto px-4 py-6">
 
         {/* Empty state */}

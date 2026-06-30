@@ -19,13 +19,14 @@ const initialState = {
 export function useWikipediaData() {
   const [state, setState] = useState(initialState)
 
+  // Main search function used by the component
   const search = useCallback(async (title) => {
     if (!title.trim()) return
 
     setState({ data: null, loading: true, error: null })
 
     try {
-      // Run all independent fetches in parallel
+      // Run requests together to keep things fast
       const [
         pageInfo,
         lastEditor,
@@ -46,6 +47,7 @@ export function useWikipediaData() {
         fetchLanguageCount(title),
       ])
 
+      // Combine everything into a single result object
       setState({
         loading: false,
         error: null,
@@ -69,6 +71,7 @@ export function useWikipediaData() {
     }
   }, [])
 
+  // Clear current results
   const reset = useCallback(() => {
     setState(initialState)
   }, [])

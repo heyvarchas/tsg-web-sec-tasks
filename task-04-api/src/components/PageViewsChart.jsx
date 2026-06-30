@@ -1,3 +1,4 @@
+{/* Need a couple of things from the recharts library to create the page views chart */}
 import {
   AreaChart,
   Area,
@@ -9,8 +10,11 @@ import {
 } from 'recharts'
 import { formatChartDate, formatCompact, formatNumber } from '../utils/formatters'
 
+{/* How about I create a new CustomTooltip component */}
 function CustomTooltip({ active, payload, label }) {
+  {/* Check if the tooltip should be shown */}
   if (!active || !payload?.length) return null
+  {/* Return the tooltip jsx */}
   return (
     <div className="bg-white border border-wiki-border rounded shadow-md px-3 py-2 text-xs">
       <p className="text-wiki-gray mb-1">{formatChartDate(label)}</p>
@@ -19,6 +23,7 @@ function CustomTooltip({ active, payload, label }) {
   )
 }
 
+{/* Now I'll create and export the main chart component */}
 export default function PageViewsChart({ pageViews }) {
   return (
     <div className="card">

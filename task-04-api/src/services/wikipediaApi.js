@@ -5,7 +5,7 @@ const WIKI_PAGEVIEWS = 'https://wikimedia.org/api/rest_v1/metrics/pageviews'
 const params = (obj) =>
   new URLSearchParams({ ...obj, origin: '*', format: 'json' }).toString()
 
-// ─── 1. Core page metadata ────────────────────────────────────────────────────
+// Core page metadata related stuff
 export async function fetchPageInfo(title) {
   const url = `${WIKI_API}?${params({
     action: 'query',
@@ -36,7 +36,7 @@ export async function fetchPageInfo(title) {
   }
 }
 
-// ─── 2. Latest editor ─────────────────────────────────────────────────────────
+// Finding latest editor
 export async function fetchLastEditor(title) {
   const url = `${WIKI_API}?${params({
     action: 'query',
@@ -53,7 +53,7 @@ export async function fetchLastEditor(title) {
   return page.revisions?.[0]?.user ?? 'Unknown'
 }
 
-// ─── 3. Intro summary + thumbnail ─────────────────────────────────────────────
+// Need Intro Summary and thumbnail
 export async function fetchSummary(title) {
   const encoded = encodeURIComponent(title.replace(/ /g, '_'))
   const res = await fetch(`${WIKI_REST}/page/summary/${encoded}`)
@@ -67,7 +67,7 @@ export async function fetchSummary(title) {
   }
 }
 
-// ─── 4. Linked pages ──────────────────────────────────────────────────────────
+// Generating a list of linked pages (first 100)
 export async function fetchLinkedPages(title) {
   const url = `${WIKI_API}?${params({
     action: 'query',
@@ -84,7 +84,7 @@ export async function fetchLinkedPages(title) {
   return (page.links ?? []).map((l) => l.title)
 }
 
-// ─── 5. Backlinks ─────────────────────────────────────────────────────────────
+// Finding first 100 back links
 export async function fetchBacklinks(title) {
   const url = `${WIKI_API}?${params({
     action: 'query',
@@ -100,7 +100,7 @@ export async function fetchBacklinks(title) {
   return (data.query.backlinks ?? []).map((b) => b.title)
 }
 
-// ─── 6. Pageviews — past 30 days ─────────────────────────────────────────────
+// Finding number of page views (last 30 days)
 export async function fetchPageViews(title) {
   const encoded = encodeURIComponent(title.replace(/ /g, '_'))
 
@@ -128,7 +128,7 @@ export async function fetchPageViews(title) {
   return { daily, total, average }
 }
 
-// ─── 7. Unique editors ────────────────────────────────────────────────────────
+// Finding number of unique editors
 export async function fetchUniqueEditors(title) {
   const url = `${WIKI_API}?${params({
     action: 'query',
@@ -144,7 +144,7 @@ export async function fetchUniqueEditors(title) {
   return page.contributors?.length ?? 0
 }
 
-// ─── 8. Language count ────────────────────────────────────────────────────────
+// We need language count too
 export async function fetchLanguageCount(title) {
   const url = `${WIKI_API}?${params({
     action: 'query',
