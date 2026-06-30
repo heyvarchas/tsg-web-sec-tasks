@@ -1,3 +1,4 @@
+// Importing mongoose, and bycryptjs for hashing
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 

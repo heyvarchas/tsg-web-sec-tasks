@@ -1,5 +1,8 @@
+// import mongoose
 const mongoose = require('mongoose');
 
+// honestly i did this part using AI
+// it serves as a blueprint for how an Issuance document is stored in MongoDB.
 const issuanceSchema = new mongoose.Schema(
     {
         asset: {

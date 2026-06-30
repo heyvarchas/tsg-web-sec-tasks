@@ -1,7 +1,9 @@
+// Importing imp modules
 const Issuance = require('./issuance.model');
 const Asset = require('../assets/asset.model');
 const { logAction } = require('../audit/audit.service');
 
+// the function that contains all the business logic for issuing an asset
 const issueAsset = async (assetId, issuedTo, issuedBy, expectedReturn, notes) => {
     const asset = await Asset.findById(assetId);
     if (!asset) {
@@ -28,7 +30,7 @@ const issueAsset = async (assetId, issuedTo, issuedBy, expectedReturn, notes) =>
     asset.status = 'issued';
     await asset.save();
 
-    // Log the action
+    // Log the action (appending)
     await logAction(assetId, 'issued', issuedBy, {
         issuedTo,
         expectedReturn,
@@ -38,6 +40,7 @@ const issueAsset = async (assetId, issuedTo, issuedBy, expectedReturn, notes) =>
     return issuance.populate(['asset', 'issuedTo', 'issuedBy']);
 };
 
+// This deals with an asset being returned
 const returnAsset = async (issuanceId, returnedBy) => {
     const issuance = await Issuance.findById(issuanceId);
     if (!issuance) {
@@ -70,6 +73,7 @@ const returnAsset = async (issuanceId, returnedBy) => {
     return issuance.populate(['asset', 'issuedTo', 'issuedBy']);
 };
 
+// To check issuances yet to be returned
 const getActiveIssuances = async (query) => {
     const { page = 1, limit = 10 } = query;
     const skip = (page - 1) * limit;
@@ -88,6 +92,7 @@ const getActiveIssuances = async (query) => {
     return { issuances, total, page: parseInt(page), limit: parseInt(limit) };
 };
 
+// A log of issuances returned and yet to be returned, with complete data
 const getUserIssuanceHistory = async (userId, query) => {
     const { page = 1, limit = 10 } = query;
     const skip = (page - 1) * limit;

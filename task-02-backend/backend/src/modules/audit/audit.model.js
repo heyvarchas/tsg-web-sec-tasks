@@ -1,5 +1,7 @@
+// We require mongoose since it's the model
 const mongoose = require('mongoose');
 
+// Creating a schema and exporting
 const auditSchema = new mongoose.Schema(
     {
         asset: {

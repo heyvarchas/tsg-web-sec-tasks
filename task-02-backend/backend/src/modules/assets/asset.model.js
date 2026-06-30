@@ -1,3 +1,4 @@
+// Workflow -> import mongoose, create a schema and export
 const mongoose = require('mongoose');
 
 const assetSchema = new mongoose.Schema(

@@ -1,5 +1,6 @@
 const assetService = require('./asset.service');
 
+// Controller function to create an asset
 const createAsset = async (req, res, next) => {
     try {
         const asset = await assetService.createAsset(req.body);
@@ -9,6 +10,7 @@ const createAsset = async (req, res, next) => {
     }
 };
 
+// Async function to get all the assets existing
 const getAllAssets = async (req, res, next) => {
     try {
         const result = await assetService.getAllAssets(req.query);
@@ -18,6 +20,7 @@ const getAllAssets = async (req, res, next) => {
     }
 };
 
+// Using an id to get an asset
 const getAssetById = async (req, res, next) => {
     try {
         const asset = await assetService.getAssetById(req.params.id);
@@ -27,6 +30,7 @@ const getAssetById = async (req, res, next) => {
     }
 };
 
+// Updating asset status, etc
 const updateAsset = async (req, res, next) => {
     try {
         const asset = await assetService.updateAsset(req.params.id, req.body);
@@ -36,6 +40,7 @@ const updateAsset = async (req, res, next) => {
     }
 };
 
+// deletion of an asset
 const deleteAsset = async (req, res, next) => {
     try {
         await assetService.deleteAsset(req.params.id);

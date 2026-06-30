@@ -1,6 +1,8 @@
+// We require jwt for authentication
 const jwt = require('jsonwebtoken');
 const User = require('./auth.model');
 
+// An async function for registering
 const register = async (name, email, password, role) => {
   const existing = await User.findOne({ email });
   if (existing) {
@@ -19,6 +21,7 @@ const register = async (name, email, password, role) => {
   };
 };
 
+// One for logina as well
 const login = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user) {
@@ -40,6 +43,7 @@ const login = async (email, password) => {
     { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
   );
 
+  // json stuff to be returned
   return {
     token,
     user: {

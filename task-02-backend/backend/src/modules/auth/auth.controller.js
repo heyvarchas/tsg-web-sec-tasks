@@ -1,5 +1,7 @@
+// Import everything from auth.service into this
 const authService = require('./auth.service');
 
+// An async controller function to register
 const register = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
@@ -10,6 +12,7 @@ const register = async (req, res, next) => {
   }
 };
 
+// Another one to login
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;

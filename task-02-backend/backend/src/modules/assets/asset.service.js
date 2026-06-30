@@ -1,6 +1,8 @@
+// we;re using qrcodes to show uniqueness of models
 const QRCode = require('qrcode');
 const Asset = require('./asset.model');
 
+// Creating an asset
 const createAsset = async (data) => {
     const { name, category, serialNumber, description } = data;
 
@@ -20,9 +22,12 @@ const createAsset = async (data) => {
     return asset;
 };
 
+// one for getting all existing assets
 const getAllAssets = async (query) => {
+    // destructuring
     const { search, category, status, page = 1, limit = 10 } = query;
 
+    // filter object (empty)
     const filter = {};
     if (status) filter.status = status;
     if (category) filter.category = new RegExp(category, 'i');
@@ -33,6 +38,7 @@ const getAllAssets = async (query) => {
         ];
     }
 
+    // determining how many documents mongodb should skip
     const skip = (page - 1) * limit;
     const [assets, total] = await Promise.all([
         Asset.find(filter).skip(skip).limit(parseInt(limit)).sort({ createdAt: -1 }),
@@ -42,6 +48,7 @@ const getAllAssets = async (query) => {
     return { assets, total, page: parseInt(page), limit: parseInt(limit) };
 };
 
+// function to get asset using its id
 const getAssetById = async (id) => {
     const asset = await Asset.findById(id);
     if (!asset) {
@@ -52,6 +59,7 @@ const getAssetById = async (id) => {
     return asset;
 };
 
+// updating an asset (admin only, handles in asset.routes)
 const updateAsset = async (id, data) => {
     const asset = await Asset.findByIdAndUpdate(id, data, {
         new: true,
@@ -65,6 +73,7 @@ const updateAsset = async (id, data) => {
     return asset;
 };
 
+// deletion of an asset (also admin only, handles in asset.routes)
 const deleteAsset = async (id) => {
     const asset = await Asset.findByIdAndDelete(id);
     if (!asset) {
